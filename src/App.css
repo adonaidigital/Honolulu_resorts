@@ -30,3 +30,20 @@
     transform: rotate(360deg);
   }
 }
+.heading {
+  margin: 0;
+  text-align: center;
+  background-color: #5e5959;
+  padding: 0.5cm;
+}
+
+.map {
+  margin: 0;
+  width: 85%;
+  height: 100vh;
+}
+
+.mapBox {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -1,32 +1,14 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import { GoogleApiWrapper} from 'google-maps-react';
 import './App.css';
+import MapBox from './MapBox'
 
 class App extends Component {
-  render() {
-    const style = {
-      width: '75%',
-      height: '100%'
-    }
+  render() {    
     return (
-      <div className="App">
-         <Map
-            google={this.props.google}
-            style={style}
-            initialCenter={{
-              lat:21.306944,
-              lng:-157.858333
-            }}
-            zoom={15}
-            onClick={this.onMapClicked}
-          >
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'} />
-
-          <InfoWindow onClose={this.onInfoWindowClose}>
-            
-          </InfoWindow>
-        </Map>
+      <div className="App" >
+      <h1 className="heading"> Fun Places in Honolulu </h1>
+         <MapBox google={this.props.google} />
       </div>
     );
   }
