@@ -33,13 +33,14 @@
 .heading {
   margin: 0;
   text-align: center;
-  background-color: #5e5959;
+  background-color: #1c2041;
+  color: #e9f1f3;
   padding: 0.5cm;
 }
 
 .map {
   margin: 0;
-  width: 85%;
+  width: 75%;
   height: 100vh;
 }
 
