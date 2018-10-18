@@ -21,6 +21,7 @@ export default class MapBox extends Component {
 componentDidMount(){
   console.log('componentDidMount');
   this.loadMap()
+  this.onclickVenue()
 }
   loadMap() {
     if (this.props && this.props.google) {
@@ -66,6 +67,22 @@ componentDidMount(){
         this.map.fitBounds(bounds);
     }
 
+    onclickVenue = () => {
+       const now = this
+       const {infowindow} = this.state
+
+       const showInfowindow = (e) => {
+         const {markers} = this.state
+         const markerIdx = markers.findIndex(m => m.title === e.target.innerText)
+         now.makeInfoWindow(markers[markerIdx], infowindow)
+          }
+        document.querySelector('.venues').addEventListener('click', (e)=> {
+          if (e.target && e.target.nodeName === 'LI') {
+            showInfowindow(e)
+          }
+        })  
+      }
+
     makeInfoWindow = (marker, infowindow) => {
       if (infowindow.marker !== marker ){
             infowindow.marker = marker
@@ -83,7 +100,7 @@ componentDidMount(){
           <div>
             <div className='mapBox' >
               <div className='textInput'>
-                <ul className='venue'>{
+                <ul className='venues'>{
                  markers.map((m, i) =>
                    (<li key={i}>{m.title}</li>))
                   }</ul>
