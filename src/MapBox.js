@@ -46,8 +46,8 @@ componentDidMount(){
 
       setMarkers = () => {
        const {google} = this.props
-       const bounds = new this.props.google.maps.LatLngBounds();
-       let {infoWindow} = this.state
+       const bounds = new google.maps.LatLngBounds();
+       let {infowindow} = this.state
 
        this.state.places.forEach((location, i) => {
          const marker = new google.maps.Marker({
@@ -56,24 +56,23 @@ componentDidMount(){
            title: location.name
          })
             marker.addListener('click', () => {
-              this.makeInfoWindow(marker, infoWindow)
+              this.makeInfoWindow(marker, infowindow)
             })
-            this.setState((state) => ({
+            this.setState(state => ({
                 markers: [...state.markers, marker]
             }))
             bounds.extend(marker.position);
        })
-        //this.map.fitBounds(bounds);
+        this.map.fitBounds(bounds);
     }
 
-    makeInfoWindow = (marker, infoWindow) => {
-      if (infoWindow.marker !== marker ){
-            infoWindow.marker = marker
-            console.log (marker);
-            infoWindow.info(`<h3>title</h3><h5>here we are!</h5>`);
-            infoWindow.open(this.map, marker) 
-            infoWindow.addListener('closeclick', () => {
-              infoWindow.marker = null
+    makeInfoWindow = (marker, infowindow) => {
+      if (infowindow.marker !== marker ){
+            infowindow.marker = marker
+            infowindow.setContent(`<h3>title</h3><h5>here we are!</h5>`);
+            infowindow.open(this.map, marker) 
+            infowindow.addListener('closeclick', () => {
+              infowindow.marker = null
              })
             }
           }
