@@ -78,11 +78,20 @@ componentDidMount(){
           }
  
     render() {
+      const {markers} = this.state
         return (
-          <div className='mapBox' >
-            <div role="application" className="map" ref="map">
-            loading map...
-            </div>
+          <div>
+            <div className='mapBox' >
+              <div className='textInput'>
+                <ul className='venue'>{
+                 markers.map((m, i) =>
+                   (<li key={i}>{m.title}</li>))
+                  }</ul>
+              </div>
+              <div role="application" className="map" ref="map">
+              loading map...
+              </div>
+            </div> 
           </div> 
       )
     }
