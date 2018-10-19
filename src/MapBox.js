@@ -122,7 +122,7 @@ componentDidMount(){
         return (
           <div>
             <div className='mapBox' >
-              <div className='textInput'>
+              <div className='textInput hideList'>
                 <input role='search' onChange={this.handleVenueChange}
                        type= 'text' value={this.state.value}/>
                 <ul className='venues'>{

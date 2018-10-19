@@ -51,9 +51,9 @@
 
 .textInput input {
   width: 100%;
-  line-height: 1cm;
+  line-height: 0.5cm;
   padding: 15px;
-  border: 1px solid #6b6565;
+  border: 2px solid #6b6565;
   color: #383030;
   font-size: 20px;
 }
@@ -76,3 +76,27 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: 600px) {
+  .heading {
+    font-size: medium;
+    padding: 1em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .map {
+    width: 100%;
+  }
+  .textInput {
+    position: absolute;
+    /* width: 4.5cm; */
+    z-index:2;
+  }
+  /* .textInput input {
+  width: 2.5cm;
+  } */
+  .hideList {
+      display: none;
+      /* z-index:2; */
+  }
+}
