@@ -34,7 +34,7 @@
   margin: 0;
   text-align: center;
   background-color: #1c2041;
-  color: #e9f1f3;
+  color: #f4f6f7;
   padding: 0.5cm;
 }
 
@@ -53,14 +53,14 @@
   width: 100%;
   line-height: 0.5cm;
   padding: 15px;
-  border: 2px solid #6b6565;
+  border: 1px solid #1c2041;
   color: #383030;
   font-size: 20px;
 }
 
 .textInput{
   width: 25%;
-  background-color: #7fa6c9
+  background-color: #6290b8
 }
 
 .textInput ul {
@@ -69,9 +69,9 @@
 }
 
 .textInput li {
-  /* text-decoration: none; */
-  border-bottom: 2px solid #6b6565;
-  color: white;
+  cursor: pointer;
+  border-bottom: 2px solid #1c2041;
+  color: #f4f6f7;
   line-height: 1.5cm;
   font-weight: bold;
 }
@@ -89,14 +89,11 @@
   }
   .textInput {
     position: absolute;
-    /* width: 4.5cm; */
     z-index:2;
   }
-  /* .textInput input {
-  width: 2.5cm;
-  } */
+  
   .hideList {
       display: none;
-      /* z-index:2; */
+    
   }
 }

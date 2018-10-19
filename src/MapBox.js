@@ -127,7 +127,7 @@ componentDidMount(){
                        type= 'text' value={this.state.value}/>
                 <ul className='venues'>{
                  markers.map((m, i) =>
-                   (<li key={i}>{m.title}</li>))
+                   (<li key={i} role='link' tabIndex='0'>{m.title}</li>))
                   }</ul>
               </div>
               <div role="application" className="map" ref="map">
