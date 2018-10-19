@@ -115,7 +115,7 @@ componentDidMount(){
       }else{
         places.forEach((p, i) => {
            if (markers.length && markers[i]) {
-            markers[i].setVisible(false)
+            markers[i].setVisible(true)
            }
         })
       }

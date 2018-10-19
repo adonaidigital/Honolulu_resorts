@@ -48,3 +48,31 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.textInput input {
+  width: 100%;
+  line-height: 1cm;
+  padding: 15px;
+  border: 1px solid #6b6565;
+  color: #383030;
+  font-size: 20px;
+}
+
+.textInput{
+  width: 25%;
+  background-color: #7fa6c9
+}
+
+.textInput ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.textInput li {
+  /* text-decoration: none; */
+  border-bottom: 2px solid #6b6565;
+  color: white;
+  line-height: 1.5cm;
+  font-weight: bold;
+}
+
