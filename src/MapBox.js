@@ -15,7 +15,8 @@ export default class MapBox extends Component {
     ], 
 
     markers:[], 
-    infowindow: new this.props.google.maps.InfoWindow()
+    infowindow: new this.props.google.maps.InfoWindow(),
+    query: ''
     }
     
 componentDidMount(){
@@ -73,7 +74,7 @@ componentDidMount(){
 
        const showInfowindow = (e) => {
          const {markers} = this.state
-         const markerIdx = markers.findIndex(m => m.title === e.target.innerText)
+         const markerIdx = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
          now.makeInfoWindow(markers[markerIdx], infowindow)
           }
         document.querySelector('.venues').addEventListener('click', (e)=> {
@@ -82,11 +83,15 @@ componentDidMount(){
           }
         })  
       }
+    
+      handleVenueChange = (e) => {
+        this.setState({query: e.target.value})
+      }
 
     makeInfoWindow = (marker, infowindow) => {
       if (infowindow.marker !== marker ){
             infowindow.marker = marker
-            infowindow.setContent(`<h3>title</h3><h5>here we are!</h5>`);
+            infowindow.setContent(`<h3>${marker.title}</h3><h5>here we are!</h5>`);
             infowindow.open(this.map, marker) 
             infowindow.addListener('closeclick', () => {
               infowindow.marker = null
@@ -95,11 +100,31 @@ componentDidMount(){
           }
  
     render() {
-      const {markers} = this.state
+      const {markers, infowindow, places, query} = this.state
+      if (query) {
+        places.forEach((p, i) => {
+          if (p.name.toLowerCase().includes(query.toLowerCase())) {
+            markers[i].setVisible(true)
+           }else{
+             if (infowindow.marker === markers[i]) {
+               infowindow.close()
+             }
+            markers[i].setVisible(false)
+           }
+        })
+      }else{
+        places.forEach((p, i) => {
+           if (markers.length && markers[i]) {
+            markers[i].setVisible(false)
+           }
+        })
+      }
         return (
           <div>
             <div className='mapBox' >
               <div className='textInput'>
+                <input role='search' onChange={this.handleVenueChange}
+                       type= 'text' value={this.state.value}/>
                 <ul className='venues'>{
                  markers.map((m, i) =>
                    (<li key={i}>{m.title}</li>))
