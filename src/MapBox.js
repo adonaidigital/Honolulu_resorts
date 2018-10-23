@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+//import axios from 'axios'
 
 export default class MapBox extends Component {
 
@@ -23,7 +24,8 @@ componentDidMount(){
   console.log('componentDidMount');
   this.loadMap()
   this.onclickVenue()
-}
+  }
+
   loadMap() {
     if (this.props && this.props.google) {
       // google is available
@@ -51,11 +53,11 @@ componentDidMount(){
        const bounds = new google.maps.LatLngBounds();
        let {infowindow} = this.state
 
-       this.state.places.forEach((location, i) => {
+       this.state.places.forEach((l, i) => {
          const marker = new google.maps.Marker({
-           position: {lat: location.location.lat, lng: location.location.lng},
+           position: {lat: l.location.lat, lng: l.location.lng},
            map: this.map,
-           title: location.name
+           title: l.name
          })
             marker.addListener('click', () => {
               this.makeInfoWindow(marker, infowindow)
@@ -81,17 +83,17 @@ componentDidMount(){
           if (e.target && e.target.nodeName === 'LI') {
             showInfowindow(e)
           }
-        })  
+        }) 
       }
     
       handleVenueChange = (e) => {
         this.setState({query: e.target.value})
       }
-
+      
     makeInfoWindow = (marker, infowindow) => {
       if (infowindow.marker !== marker ){
             infowindow.marker = marker
-            infowindow.setContent(`<h3>${marker.title}</h3><h5>here we are!</h5>`);
+            infowindow.setContent(`<h3>${marker.title}</h3><h5>here we are !</h5>`);
             infowindow.open(this.map, marker) 
             infowindow.addListener('closeclick', () => {
               infowindow.marker = null
@@ -123,12 +125,14 @@ componentDidMount(){
           <div>
             <div className='mapBox' >
               <div className='textInput hideList'>
-                <input role='search' onChange={this.handleVenueChange}
-                       type= 'text' value={this.state.value}/>
-                <ul className='venues'>{
-                 markers.map((m, i) =>
-                   (<li key={i} role='link' tabIndex='0'>{m.title}</li>))
-                  }</ul>
+                <input role='search' onChange={this.handleVenueChange} placeholder='filter'
+                       type='text' value={this.state.value}/>
+                  <div>
+                    <ul className='venues'>{
+                    markers.filter(m => m.getVisible()).map((m, i) =>
+                      (<li key={i} role='link' tabIndex='0'>{m.title}</li>))
+                      }</ul>
+                  </div>
               </div>
               <div role="application" className="map" ref="map">
               loading map...

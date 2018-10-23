@@ -74,6 +74,12 @@
   color: #f4f6f7;
   line-height: 1.5cm;
   font-weight: bold;
+  font-size: 20px;
+}
+
+img {
+  height: 100px;
+   width: 100px;
 }
 
 @media screen and (max-width: 600px) {
