@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-//import axios from 'axios'
 
 export default class MapBox extends Component {
 
@@ -31,8 +30,8 @@ componentDidMount(){
       .then(resp =>  (resp.ok) ? resp.json() : new Error(resp.statusText))
       .then(resp => {
         this.setState({photos: resp.results})
-        this.loadMap()
         this.onclickVenue()
+        this.loadMap()
       })
       .catch(err => {
         this.setState({error: err.toString()})
@@ -89,16 +88,21 @@ componentDidMount(){
     }
 
     onclickVenue = () => {
-       const that = this
+       const now = this
        const {infowindow} = this.state
 
        const showInfowindow = (e) => {
          const {markers} = this.state
          const markerIdx = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-         that.makeInfoWindow(markers[markerIdx], infowindow, this.state.photos[markerIdx])
+         now.makeInfoWindow(markers[markerIdx], infowindow, this.state.photos[markerIdx])
           }
         document.querySelector('.venues').addEventListener('click', (e)=> {
           if (e.target && e.target.nodeName === 'LI') {
+            showInfowindow(e)
+          }
+        })
+        document.querySelector('.venues').addEventListener('keydown', (e)=> {
+          if(e.keyCode === 13 ){
             showInfowindow(e)
           }
         }) 
@@ -140,7 +144,7 @@ componentDidMount(){
                   });
       
                 } else {
-                  window.alert('No results');
+                  window.alert('data is unavailable');
                 }
               } else {
                 window.alert('Could not Geocode due to : ' + status);

@@ -40,7 +40,7 @@
 
 .map {
   margin: 0;
-  width: 75%;
+  width: 100%;
   height: 100vh;
 }
 
@@ -50,22 +50,25 @@
 }
 
 .textInput input {
-  width: 91%;
+  width: 5cm;
   line-height: 0.9cm;
   padding: 15px;
+  margin-top: 15px;
   border: 1px solid #1c2041;
   color: #383030;
   font-size: 23px;
 }
 
 .textInput{
-  width: 25%;
-  background-color: #6290b8
+  /* width: 25%; */
+  background-color: #6290b8;
+  padding: 0 10px 10px;
 }
 
 .textInput ul {
   list-style-type: none;
   padding-left: 0;
+  display: block;
 }
 
 .textInput li {
@@ -82,16 +85,6 @@ img {
    width: 100px;
 }
 
-.menu {
-  width: 55px;
-  fill: #E0E0E0;
-  float: right;
-  /* display: none; */
-  vertical-align: middle;
-  touch-action: manipulation;
-  cursor: pointer;
-}
-
 li:focus {
   background-color: #cdc7e734;
 }
@@ -102,51 +95,59 @@ li:hover {
   cursor: pointer;
 }
 
-error {
+.error {
   color: #da3d22;
 }
-/* .sideNav {
-  z-index:1000;
-  position: fixed;
-  left: 260px;
-  height: 100%;
-  top: 0px;
-  margin-left: -250px;
-  overflow-y: auto;
-  transition: all 0.5s ease
-} */
 
-.sideNav.toggled {
-  width: 250px;
+.sideNav {
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-@media screen and (max-width: 600px) {
+.list-btn {
+  float: right;
+  display: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
   .heading {
-    font-size: medium;
+    font-size: small;
     padding: 1em;
   }
 
-  .menu {
-    top: 0;
-}
+  .list-btn {
+    top: 0!important;
 }
 
-@media screen and (max-width: 800px) {
+.sideNav.toggled {
+  width: 250px;
+   }
+}
+
+@media screen and (max-width: 850px) {
   .map {
     width: 100%;
   }
+
   .textInput {
     position: absolute;
     z-index:2;
+    max-width: 250px;
   }
   
   .hideList {
-      display: none;
-    
+    display: none;
   }
-
-  .menu {
+ 
+  .list-btn {
     position: absolute;
-    top: 13px
+    top: 10px !important;
+    width: 50px;
+    fill: #cabbbb;
+    display: flex
   }
 }

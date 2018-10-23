@@ -5,10 +5,10 @@ import MapBox from './MapBox'
 
 class App extends Component {
   componentDidMount() {
-    document.querySelector('.menu').addEventListener('click', this.toggleMenu)
-    document.querySelector('.menu').addEventListener('keydown', (e) => {
+    document.querySelector('.list-btn').addEventListener('click', this.toggleMenu)
+    document.querySelector('.list-btn').addEventListener('keydown', (e) => {
       if(e.keyCode === 13) {
-        document.querySelector('.menu').focus()
+        document.querySelector('.list-btn').focus()
         this.toggleMenu()
       }
     })
@@ -21,8 +21,7 @@ class App extends Component {
   render() {    
     return (
       <div className="App" >
-     
-      <h1 className="heading"> Fun Places in Honolulu <span className="menu" tabIndex="0" > ☰ </span> </h1>
+      <h1 className="heading"> Fun Places in Honolulu <span className="list-btn" tabIndex="0" > ☰ </span> </h1>
          <MapBox google={this.props.google} />
       </div>
     );
