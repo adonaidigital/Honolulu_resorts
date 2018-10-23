@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import axios from 'axios'
+//import axios from 'axios'
 
 export default class MapBox extends Component {
 
@@ -178,7 +178,7 @@ componentDidMount(){
         return (
           <div>
             <div className='mapBox' >
-              <div className='textInput hideList'>
+              <div className='textInput hideList sideNav'>
                 <input role='search' onChange={this.handleVenueChange} placeholder='filter'
                        type='text' value={this.state.value}/>
                   <div>
