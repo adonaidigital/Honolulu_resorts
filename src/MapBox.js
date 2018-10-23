@@ -15,11 +15,13 @@ export default class MapBox extends Component {
       {name: 'Kaka`ako Park', location: {lat: 21.295116031557814, lng: -157.86258190602086}}
     ],   
 
-    users: [],
+    photos: [],
     markers:[], 
     infowindow: new this.props.google.maps.InfoWindow(),
     query: '',
-    newIcon: null
+    newIcon: null, 
+    pageError: null,
+    error:''
     }
     
 componentDidMount(){
@@ -28,7 +30,7 @@ componentDidMount(){
   fetch(url)
       .then(resp =>  (resp.ok) ? resp.json() : new Error(resp.statusText))
       .then(resp => {
-        this.setState({users: resp.results})
+        this.setState({photos: resp.results})
         this.loadMap()
         this.onclickVenue()
       })
@@ -57,30 +59,26 @@ componentDidMount(){
       })
       this.map = new maps.Map(node, mapConfig)
       this.setMarkers()
+    } else{
+      this.setState({pageError: "sorry could not load map"})
     }
   }
-
-      sitesID = marker => {
-        let {sites} = this.state
-        let venue = sites.filter(s => s.sites.name === marker.title)
-        let venueID = venue[0].venue.id
-        return venueID
-      }
 
       setMarkers = () => {
        const {google} = this.props
        const bounds = new google.maps.LatLngBounds();
        let {infowindow, sites} = this.state
-       const {users} = this.state
+       const {photos} = this.state
 
        sites.forEach((l, idx) => {
          const marker = new google.maps.Marker({
            position: {lat: l.location.lat, lng: l.location.lng},
            map: this.map,
-           title: l.name
+           title: l.name,
+           animation: window.google.maps.Animation.DROP
          })
             marker.addListener('click', () => {
-              this.makeInfoWindow(marker, infowindow, users[idx])
+              this.makeInfoWindow(marker, infowindow, photos[idx])
             })
             this.setState(state => ({
                 markers: [...state.markers, marker]
@@ -97,7 +95,7 @@ componentDidMount(){
        const showInfowindow = (e) => {
          const {markers} = this.state
          const markerIdx = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-         that.makeInfoWindow(markers[markerIdx], infowindow, this.state.users[markerIdx])
+         that.makeInfoWindow(markers[markerIdx], infowindow, this.state.photos[markerIdx])
           }
         document.querySelector('.venues').addEventListener('click', (e)=> {
           if (e.target && e.target.nodeName === 'LI') {
@@ -142,10 +140,10 @@ componentDidMount(){
                   });
       
                 } else {
-                  window.alert('No results found');
+                  window.alert('No results');
                 }
               } else {
-                window.alert('Geocoder failed due to: ' + status);
+                window.alert('Could not Geocode due to : ' + status);
               }
             });
 
@@ -177,7 +175,11 @@ componentDidMount(){
       }
         return (
           <div>
-            <div className='mapBox' >
+          {this.state.error ? (
+            <div className="error">
+              Something is gone Wrong! check your internet connection!
+            </div>):
+            (<div className='mapBox' >
               <div className='textInput hideList sideNav'>
                 <input role='search' onChange={this.handleVenueChange} placeholder='filter'
                        type='text' value={this.state.value}/>
@@ -190,8 +192,9 @@ componentDidMount(){
               </div>
               <div role="application" className="map" ref="map">
               loading map...
+              {this.state.pageError && <div className="error">{this.state.pageError}</div>}
               </div>
-            </div> 
+            </div>)} 
           </div> 
       )
     }

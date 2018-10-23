@@ -86,10 +86,38 @@ img {
   width: 55px;
   fill: #E0E0E0;
   float: right;
+  /* display: none; */
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
 }
 
-.menu {
-  display: none;
+li:focus {
+  background-color: #cdc7e734;
+}
+
+li:hover {
+  border-color: #2a077e;
+  color:  #2a077e;
+  cursor: pointer;
+}
+
+error {
+  color: #da3d22;
+}
+/* .sideNav {
+  z-index:1000;
+  position: fixed;
+  left: 260px;
+  height: 100%;
+  top: 0px;
+  margin-left: -250px;
+  overflow-y: auto;
+  transition: all 0.5s ease
+} */
+
+.sideNav.toggled {
+  width: 250px;
 }
 
 @media screen and (max-width: 600px) {
@@ -99,7 +127,7 @@ img {
   }
 
   .menu {
-    top: 0!important;
+    top: 0;
 }
 }
 
@@ -118,8 +146,7 @@ img {
   }
 
   .menu {
-    display: block;
     position: absolute;
-    top: 13px !important;
-}
+    top: 13px
+  }
 }
