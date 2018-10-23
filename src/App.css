@@ -50,12 +50,12 @@
 }
 
 .textInput input {
-  width: 100%;
-  line-height: 0.5cm;
+  width: 91%;
+  line-height: 0.9cm;
   padding: 15px;
   border: 1px solid #1c2041;
   color: #383030;
-  font-size: 20px;
+  font-size: 23px;
 }
 
 .textInput{
