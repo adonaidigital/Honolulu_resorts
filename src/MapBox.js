@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 
 export default class MapBox extends Component {
-
+  /* locations were added to state*/
   state = {
-    sites: [
+    venues: [
       {name: 'Iolani Palace', location: {lat: 21.306702252594054, lng: -157.85908306773678}},
       {name: 'Aloha Tower', location: {lat: 21.306958817002744, lng: -157.86492805197977}},
       {name: 'Waikiki Beach', location: {lat: 21.276314778227228, lng: -157.82579490801336}},
@@ -23,6 +23,7 @@ export default class MapBox extends Component {
     error:''
     }
     
+    /* Randomuser api was easy to use but I will use Foursquare API in the version 2 of the project*/
 componentDidMount(){
   console.log('componentDidMount')
   const url = 'https://randomuser.me/api/?results=7'
@@ -37,10 +38,10 @@ componentDidMount(){
         this.setState({error: err.toString()})
       })
   }
-
+/* Initializing Google maps based on Google Maps react documentation*/
   loadMap() {
     if (this.props && this.props.google) {
-      // google is available
+      
       const {google} = this.props;
       const maps = google.maps;
 
@@ -62,20 +63,21 @@ componentDidMount(){
       this.setState({pageError: "sorry could not load map"})
     }
   }
-
+/* Markers were added */
       setMarkers = () => {
        const {google} = this.props
        const bounds = new google.maps.LatLngBounds();
-       let {infowindow, sites} = this.state
+       let {infowindow, venues} = this.state
        const {photos} = this.state
 
-       sites.forEach((l, idx) => {
+       venues.forEach((l, idx) => {
          const marker = new google.maps.Marker({
            position: {lat: l.location.lat, lng: l.location.lng},
            map: this.map,
            title: l.name,
            animation: window.google.maps.Animation.DROP
          })
+         /* infowindows connected to markers */
             marker.addListener('click', () => {
               this.makeInfoWindow(marker, infowindow, photos[idx])
             })
@@ -90,6 +92,7 @@ componentDidMount(){
     onclickVenue = () => {
        const now = this
        const {infowindow} = this.state
+
 
        const showInfowindow = (e) => {
          const {markers} = this.state
@@ -111,7 +114,7 @@ componentDidMount(){
       handleVenueChange = (e) => {
         this.setState({query: e.target.value})
       }
-      
+      /* Infowindows is able to show data from API*/
     makeInfoWindow = (marker, infowindow, user) => {
       const {google} = this.props
       const service = new google.maps.places.PlacesService(this.map)
@@ -122,8 +125,9 @@ componentDidMount(){
       if (infowindow.marker !== marker ){
         if(infowindow.marker) {
           const idx = markers.findIndex(m => m.title === infowindow.marker.title)
-          markers[idx].setIcon(defaultIcon)
+           markers[idx].setIcon(defaultIcon)
         }
+        /* Geocoder and Places API method was to validate randomuser API request in setting infowindow content */
         marker.setIcon(newIcon)    
         infowindow.marker = marker;
             geocoder.geocode({'location': marker.position}, function(results, status) {
@@ -150,7 +154,7 @@ componentDidMount(){
                 window.alert('Could not Geocode due to : ' + status);
               }
             });
-
+            /* This closes the infowindow*/
             infowindow.addListener('closeclick', () => {
               infowindow.marker = null
              });
@@ -158,9 +162,9 @@ componentDidMount(){
           }
  
     render() {
-      const {markers, infowindow, sites, query} = this.state
+      const {markers, infowindow, venues, query} = this.state
       if (query) {
-        sites.forEach((p, i) => {
+        venues.forEach((p, i) => {
           if (p.name.toLowerCase().includes(query.toLowerCase())) {
             markers[i].setVisible(true)
            }else{
@@ -171,12 +175,12 @@ componentDidMount(){
            }
         })
       }else{
-        sites.forEach((p, i) => {
+        venues.forEach((i) => {
            if (markers.length && markers[i]) {
             markers[i].setVisible(true)
            }
         })
-      }
+      }   /* error properly handled */
         return (
           <div>
           {this.state.error ? (
@@ -203,3 +207,9 @@ componentDidMount(){
       )
     }
   }
+  /* 
+  References: 
+  https://developers.google.com/maps/documentation/javascript/tutorial
+  Edoh Kodjo Walkthrough https://www.youtube.com/watch?v=9t1xxypdkrE&feature=youtu.be
+  Fullstack React https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/
+  */
