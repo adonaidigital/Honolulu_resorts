@@ -113,7 +113,7 @@ componentDidMount(){
     
       handleVenueChange = (e) => {
         this.setState({query: e.target.value})
-      }
+       }
       /* Infowindows is able to show data from API*/
     makeInfoWindow = (marker, infowindow, user) => {
       const {google} = this.props
@@ -189,7 +189,7 @@ componentDidMount(){
             </div>):
             (<div className='mapBox' >
               <div className='textInput hideList sideNav'>
-                <input role='search' onChange={this.handleVenueChange} placeholder='filter'
+                <input role='search' onChange={this.handleVenueChange} placeholder='search'
                        type='text' value={this.state.value}/>
                   <div>
                     <ul className='venues'>{

@@ -61,7 +61,7 @@
 
 .textInput{
   /* width: 25%; */
-  background-color: #6290b8;
+  background-color: #33414d;
   padding: 0 10px 10px;
 }
 
@@ -86,12 +86,12 @@ img {
 }
 
 li:focus {
-  background-color: #cdc7e734;
+  background-color: #cdc7e771;
 }
 
 li:hover {
-  border-color: #2a077e;
-  color:  #2a077e;
+  border-color: #d3dd43;
+  color:  #d3dd43;
   cursor: pointer;
 }
 
@@ -107,11 +107,11 @@ li:hover {
   box-sizing: border-box;
 }
 
-.list-btn {
+/* .list-btn {
   float: right;
-  display: none;
+  display: visible;
   cursor: pointer;
-}
+} */
 
 @media screen and (max-width: 550px) {
   .heading {
